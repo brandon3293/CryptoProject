@@ -1,0 +1,44 @@
+body{
+    background-color: rgb(44, 127, 182);
+}
+h1, h2{
+    font-family: 'Martian Mono', monospace;
+    text-decoration: underline;
+    text-align: center;
+    padding: 35px;
+}
+#section{
+    background-color:rgb(23, 72, 100);
+    padding:50px;
+}
+#cell{
+    display:grid;
+    text-align: center;
+    grid-template-columns: repeat(2,auto);
+    row-gap:50px;
+}
+#hashForm,label{
+    font-family: 'Share Tech', sans-serif;
+    font-size: 20pt;
+}
+#submit{
+    
+   text-align: center;
+   margin-right: 25px;
+    grid-column: span 2;
+}
+#output,#Counter{
+    font-family: 'Share Tech', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    padding: 15px;
+}
+#encryption{
+    font-family: 'Share Tech', sans-serif;
+    font-size: 20px;
+    padding:10px;
+}
+#section2{
+    background-color:rgb(23, 72, 100);
+    text-align: center;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cryptography</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+    </style>
+</head>
+<body>
+    <h1>SHA256 Hash Generator</h1>
+    <div id="section">
+        <div>
+            <form id="hashForm">
+                <div id="cell">
+                    <div id="input">
+                        <label for="inputString">Input String:</label>
+                        <input type="text" id="inputString" required><br>
+                    </div>
+                    <div id="difficultyLVL">
+                        <label for="difficultyLevel">Difficulty Level:</label>
+                        <input type="number" id="difficultyLevel" required min="0"><br>
+                    </div>
+                    <div id="submit">
+                        <input type="submit" value="Generate Hash">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <h2>GENERATED HASH</h2>
+    <div id="Counter"></div> 
+    <div id="output"></div>
+
+    <div id="section2">
+        <h1>Caesar Cipher</h1>
+        <label for="plaintext">Plaintext:</label>
+        <input type="text" id="inputText" placeholder=""><br><br>
+        <label for="shift">Shift:</label>
+        <input type="number" id="shift" placeholder=""><br><br>
+        <button onclick="encrypt()">Encrypt</button><br><br>
+        <label for="ciphertext">Encrypted Text:</label>
+        <p id="encryption"></p>
+    </div>
+ 
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        
+        document.getElementById("hashForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+            start=Date.now();
+            console.log("start: "+start);
+            var inputString = document.getElementById("inputString").value;
+            var difficultyLevel = document.getElementById("difficultyLevel").value;
+
+            // Add a delay based on difficulty level (milliseconds)
+            var delay = difficultyLevel * 1000;
+
+            // Show loading message
+            document.getElementById("output").innerHTML = "Mining in progress...";
+
+            // Generate hash after the delay
+            setTimeout(function() {
+                var hash = generateHash(inputString, difficultyLevel);
+
+                // Display the hash
+                end=Date.now();
+                document.getElementById("output").innerHTML = "SHA256 Hash: " + hash;
+                
+                console.log("end: "+end);
+                timeTaken=(end-start)/1000
+                document.getElementById("Counter").innerHTML = "Time taken to generate HASH: " + timeTaken + " Seconds"
+                console.log("Time taken: "+timeTaken+ " seconds");
+            }, delay);
+            
+        });
+
+        function generateHash(inputString, difficultyLevel) {
+        // Compute the SHA256 hash using the inputString and difficultyLevel
+        var hash = CryptoJS.SHA256(inputString + difficultyLevel);
+        return hash.toString();
+        }  
+    </script>
+    <script>
+    function encrypt() {
+      var inputText = document.getElementById("inputText").value;
+      var shift = parseInt(document.getElementById("shift").value);
+      var encryptionString = "";
+
+      for (var i = 0; i < inputText.length; i++) {
+        var charIdx = inputText.charCodeAt(i);
+        
+        // Uppercase letters
+        if (charIdx >= 65 && charIdx <= 90) {
+            encryptionString += String.fromCharCode(((charIdx - 65 + shift) % 26) + 65);
+        }
+        // Lowercase letters
+        else if (charIdx >= 97 && charIdx <= 122) {
+            encryptionString += String.fromCharCode(((charIdx - 97 + shift) % 26) + 97);
+        }
+        // Non-alphabetic characters
+        else {
+            encryptionString += inputText.charAt(i);
+        }
+      }
+
+      document.getElementById("encryption").textContent = encryptionString;
+    }
+  </script>
+</body>
+</html>
